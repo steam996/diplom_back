@@ -6,7 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -31,5 +33,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Collection<Role> roles;
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<UserFile> files = new ArrayList<>();
 
 }
