@@ -82,7 +82,7 @@ public class FileService {
         File focusFile = getFocusFile(path, filename);
         focusFile.delete();
         fileRepository.deleteById(fileRepository.findByNameAndUserId(filename, user.getId())
-                .get()
+                .orElseThrow(FileNotFoundException::new)
                 .getId());
     }
 
@@ -92,7 +92,7 @@ public class FileService {
         User user = getUser();
         String focusDir = getUserPath(user, filename);
         File focusFile = getFocusFile(focusDir, filename);
-        UserFile file = fileRepository.findByNameAndUserId(filename, user.getId()).get();
+        UserFile file = fileRepository.findByNameAndUserId(filename, user.getId()).orElseThrow(FileNotFoundException::new);
         file.setName(focusFileName);
         fileRepository.save(file);
         focusFile.renameTo(new File(focusDir + File.separator + focusFileName));
@@ -103,6 +103,7 @@ public class FileService {
         String path = getUserPath(user, filename);
         return getFocusFile(path, filename);
     }
+
 
     private @NotNull User getUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
