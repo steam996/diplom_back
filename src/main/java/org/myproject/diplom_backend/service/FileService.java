@@ -8,6 +8,8 @@ import org.myproject.diplom_backend.entity.User;
 import org.myproject.diplom_backend.entity.UserFile;
 import org.myproject.diplom_backend.repositories.FileRepository;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -98,10 +100,10 @@ public class FileService {
         focusFile.renameTo(new File(focusDir + File.separator + focusFileName));
     }
 
-    public File downloadFile(String filename) throws FileNotFoundException {
+    public Resource downloadFile(String filename) throws FileNotFoundException {
         User user = getUser();
         String path = getUserPath(user, filename);
-        return getFocusFile(path, filename);
+        return new FileSystemResource(getFocusFile(path, filename));
     }
 
 
