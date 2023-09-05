@@ -1,7 +1,6 @@
 package org.myproject.diplom_backend.exception;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,6 +1,7 @@
 package org.myproject.diplom_backend.config;
 
 import lombok.RequiredArgsConstructor;
+import org.myproject.diplom_backend.filter.JwtRequestFilter;
 import org.myproject.diplom_backend.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;

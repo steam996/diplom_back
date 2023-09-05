@@ -1,4 +1,4 @@
-package org.myproject.diplom_backend.config;
+package org.myproject.diplom_backend.filter;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
-// TODO: разобраться с хедерами
-
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -32,7 +30,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         String authHeader = request.getHeader("auth-token");
-        System.out.println(authHeader);
         request.getCookies();
         String login = null;
         String jwt = null;
@@ -52,7 +49,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                     login,
                     null,
-                    tokenUtils.getFiles(jwt).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList())
+                    tokenUtils.getRoles(jwt).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList())
             );
             SecurityContextHolder.getContext().setAuthentication(token);
         }

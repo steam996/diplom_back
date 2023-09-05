@@ -109,7 +109,6 @@ public class FileService {
 
     private @NotNull User getUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println(username);
         return userService.findUserByLogin(username).orElseThrow(RuntimeException::new);
     }
 

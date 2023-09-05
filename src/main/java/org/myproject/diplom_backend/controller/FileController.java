@@ -30,7 +30,6 @@ public class FileController {
     @PostMapping("/file")
     public ResponseEntity<?> uploadFile(@RequestParam String filename,
                                         @RequestParam MultipartFile file) {
-        System.out.println(filename);
         try {
             fileService.upload(file, filename);
             return new ResponseEntity<>(HttpStatus.OK);
